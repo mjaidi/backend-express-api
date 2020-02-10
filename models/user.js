@@ -13,13 +13,28 @@ const User = sequelize.define(
     },
     email: {
       type: Sequelize.STRING,
+      validate: {
+        isEmail: true
+      },
       unique: true,
       allowNull: false
     },
     password: {
       type: Sequelize.STRING,
-      allowNull: false
-    }
+      allowNull: false,
+      validate: {
+        len: [6, 25]
+      }
+    },
+    role: {
+      type: Sequelize.STRING,
+      defaultValue: "client",
+      validate: {
+        isIn: [["client", "supplier", "admin"]]
+      }
+    },
+    createdAt: Sequelize.DATE,
+    updatedAt: Sequelize.DATE
   },
   {
     hooks: {
@@ -35,14 +50,7 @@ User.prototype.comparePassword = function(password) {
 };
 
 // create all the defined tables in the specified database.
-sequelize
-  .sync()
-  .then(() =>
-    console.log(
-      "users table has been successfully created, if one doesn't exist"
-    )
-  )
-  .catch(error => console.log("This error occured", error));
+// tables are created through the migration files
 
 // export User model for use in other files.
 module.exports = User;

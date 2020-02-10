@@ -38,5 +38,12 @@ exports.signup = async function(req, res, next) {
 };
 
 exports.signin = function(req, res, next) {
-  res.json({ token: tokenForUser(req.user) });
+  res.json({
+    token: tokenForUser(req.user),
+    user: {
+      username: req.user.username,
+      email: req.user.email,
+      role: req.user.role
+    }
+  });
 };
