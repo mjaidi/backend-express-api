@@ -15,10 +15,10 @@ module.exports = function(app) {
   });
   app.post("/signup", Authentication.signup);
   app.post("/signin", requireSignIn, Authentication.signin);
-  app.get("/secretAdmin", requireSignIn, permit("admin"), Pages.secretAdmin);
+  app.get("/secretAdmin", requireAuth, permit("admin"), Pages.secretAdmin);
   app.get(
     "/secret",
-    requireSignIn,
+    requireAuth,
     permit("admin", "client", "supplier"),
     Pages.secretAllLoggedIn
   );

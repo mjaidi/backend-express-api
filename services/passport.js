@@ -19,7 +19,7 @@ const localLogin = new LocalStrategy(localOptions, function(
         return done(null, false);
       } else if (!user.comparePassword(password)) {
         // verify password - need to decrypt to verify
-        return null, false;
+        return done(null, false);
       } else {
         return done(null, user);
       }
