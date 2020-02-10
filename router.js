@@ -15,7 +15,7 @@ module.exports = function(app) {
   });
   app.post("/signup", Authentication.signup);
   app.post("/signin", requireSignIn, Authentication.signin);
-  app.get("/secretAdmin", requireAuth, permit("admin"), Pages.secretAdmin);
+  app.get("/admin", requireAuth, permit("admin"), Pages.secretAdmin);
   app.get(
     "/secret",
     requireAuth,
